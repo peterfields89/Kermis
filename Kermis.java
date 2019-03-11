@@ -5,8 +5,7 @@ public class Kermis {
 		System.out.println("Welkom bij de kermis!");
 		Starten start = new Starten();
 		start.starten();
-		
-		
+
 	}
 }
 
@@ -14,13 +13,20 @@ class Starten {
 	void starten() {
 		Attractie atr = new Attractie();
 		Attractie botsautos = new Botsautos();
+		botsautos.naam = "Botsautos";
 		Attractie spin = new Spin();
+		spin.naam = "Spin";
 		Attractie spiegel = new Spiegelpaleis();
+		spiegel.naam = "Spiegelpaleis";
 		Attractie spook = new Spookhuis();
+		spook.naam = "Spookhuis";
 		Attractie hawaii = new Hawaii();
+		hawaii.naam = "Hawaii";
 		Attractie ladder = new Ladderklimmen();
+		ladder.naam = "Ladder klimmen";
 		OmzetBerekenen omzet = new OmzetBerekenen();
 		Kaartjes kaartje = new Kaartjes();
+		BelastingInspecteur inspecteur = new BelastingInspecteur();
 		System.out.println("Voer 1 in om de Botsautos te starten");
 		System.out.println("Voer 2 in om de Spin te starten");
 		System.out.println("Voer 3 in om het Spiegelpaleis te starten");
@@ -54,21 +60,29 @@ class Starten {
 				kaartje.kaartje += 1;
 				break;
 			case "5":
-				hawaii.starten();
-				omzet.omzet += 2.90;
-				kaartje.kaartje += 1;
+				if (kaartje.kaartje < 5) {
+					hawaii.starten();
+					omzet.omzet += 2.90;
+					kaartje.kaartje += 1;
+					break;
+				} else {
+					System.out.println("Helaas, de attractie moet sluiten voor onderhoud");
+				}
 				break;
 			case "6":
-				ladder.starten();
-				omzet.omzet += 5.00;
-				kaartje.kaartje += 1;
+				if (kaartje.kaartje < 10) {
+					ladder.starten();
+					omzet.omzet += 5.00;
+					inspecteur.kansSpelBelastingBetalen(omzet.omzet);
+					kaartje.kaartje += 1;
+					break;
+				} else {
+					System.out.println("Helaas, de attractie moet sluiten voor onderhoud");
+				}
 				break;
 			case "o":
-				System.out.println(ladder.omzet);
-				System.out.println("De totale omzet is: "+omzet.omzet+" euro. En er zijn "+kaartje.kaartje+" kaartjes verkocht!");
-				break; 
-			case "k":
-				
+				System.out.println("De totale omzet is: " + omzet.omzet + " euro, en er zijn " + kaartje.kaartje
+						+ " kaartjes verkocht!");
 				break;
 			default:
 				System.out.println("Helaas hebben we niet meer dan 6 attracties :(");
@@ -81,6 +95,8 @@ class Starten {
 class Attractie {
 	double omzet;
 	int kaartje;
+	String naam;
+
 	void starten() {
 		System.out.println("Attractie is gestart");
 	}
@@ -88,49 +104,59 @@ class Attractie {
 
 class Botsautos extends Attractie {
 	void starten() {
-		System.out.println("Botsauto's is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
 
 class Spin extends Attractie {
 	void starten() {
-		System.out.println("Spin is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
 
 class Spiegelpaleis extends Attractie {
 	void starten() {
-		System.out.println("Spiegelpaleis is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
 
 class Spookhuis extends Attractie {
 	void starten() {
-		System.out.println("Spookhuis is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
 
 class Hawaii extends Attractie {
 	void starten() {
-		System.out.println("Hawaii is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
 
 class Ladderklimmen extends Attractie {
 	void starten() {
-		System.out.println("Ladderklimmen is gestart");
+		System.out.println(naam + " is gestart");
 	}
 }
-class OmzetBerekenen{
-	double omzet; 
-	public void alleomzet(double o){
-		omzet += o; 
+
+class OmzetBerekenen {
+	double omzet;
+
+	public void alleomzet(double o) {
+		omzet += o;
 	}
-	
 }
-class Kaartjes{
+
+class Kaartjes {
 	int kaartje;
-	void allekaartjes (int k) {
+
+	void allekaartjes(int k) {
 		kaartje += k;
 	}
+}
+class BelastingInspecteur{
+	double omzet;
+	void kansSpelBelastingBetalen(double b) {
+		omzet =- 1.5;
+	}
+	
 }
